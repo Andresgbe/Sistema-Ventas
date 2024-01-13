@@ -11,7 +11,7 @@ package Modelo;
  */
 public class Cliente {
     private int id;
-    private String dni;
+    private String cedula;
     private String nombre;
     private String telefono;
     private String direccion;
@@ -19,9 +19,9 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(int id, String dni, String nombre, String telefono, String direccion) {
+    public Cliente(int id, String cedula, String nombre, String telefono, String direccion) {
         this.id = id;
-        this.dni = dni;
+        this.cedula = cedula;
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
@@ -35,12 +35,12 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getDni() {
-        return dni;
+    public String getCedula() {
+        return cedula;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
 
     public String getNombre() {

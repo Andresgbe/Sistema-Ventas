@@ -25,12 +25,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author USUARIO
+ * @author Andres Gil
  */
 public final class Sistema extends javax.swing.JFrame {
     Date fechaVenta = new Date();
@@ -77,6 +79,44 @@ public final class Sistema extends javax.swing.JFrame {
             LabelVendedor.setText(priv.getNombre());
         }
     }
+    
+    //VALIDADORES
+    
+    public static boolean validarNumeroTelefono(String numeroTelefono) {
+        // Eliminar espacios y guiones del número de teléfono
+        String numeroSinFormato = numeroTelefono.replaceAll("[\\s-]+", "");
+
+        // Definir el patrón para el formato del número de teléfono (10 a 11 dígitos con opcional signo de + al principio)
+        String patron = "^\\+?[0-9]{10,13}$";
+
+        // Compilar el patrón
+        Pattern pattern = Pattern.compile(patron);
+
+        // Crear un objeto Matcher
+        Matcher matcher = pattern.matcher(numeroSinFormato);
+
+        // Verificar si coincide con el patrón
+        return matcher.matches();
+    }
+
+    // VALIDADOR CEDULA
+    public static boolean validarCedula(String cedula) {
+        // Definir el patrón para el formato de la cédula (6 a 9 dígitos)
+        String patron = "^[0-9]{6,8}$";
+        // Compilar el patrón
+        Pattern pattern = Pattern.compile(patron);
+        // Crear un objeto Matcher
+        Matcher matcher = pattern.matcher(cedula);
+        // Verificar si coincide con el patrón
+        return matcher.matches();
+    }
+    
+    // VALIDAR NOMBRES
+        public static boolean validarNombre(String texto) {
+        String patron = "^[a-zA-Z ]*$";
+        return texto.matches(patron);
+    }
+
     public void ListarCliente() {
         List<Cliente> ListarCl = client.ListarCliente();
         modelo = (DefaultTableModel) TableCliente.getModel();
@@ -641,6 +681,11 @@ public final class Sistema extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setText("Cédula");
 
+        txtCedulaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaClienteActionPerformed(evt);
+            }
+        });
         txtCedulaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCedulaClienteKeyTyped(evt);
@@ -649,6 +694,12 @@ public final class Sistema extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setText("Nombre:");
+
+        txtTelefonoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoClienteActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("Télefono:");
@@ -693,43 +744,47 @@ public final class Sistema extends javax.swing.JFrame {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(38, 38, 38)
-                        .addComponent(txtDirecionCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(btnGuardarCliente)
-                        .addGap(39, 39, 39)
-                        .addComponent(btnEditarCliente))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(btnEliminarCliente)
-                        .addGap(39, 39, 39)
-                        .addComponent(btnNuevoCliente))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                                    .addComponent(jLabel13)
-                                    .addGap(46, 46, 46))
-                                .addGroup(jPanel9Layout.createSequentialGroup()
-                                    .addComponent(jLabel12)
-                                    .addGap(56, 56, 56)))
+                        .addContainerGap()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(41, 41, 41)))
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTelefonoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtCedulaCliente)
-                                .addComponent(txtNombreCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)))))
-                .addContainerGap(7, Short.MAX_VALUE))
+                                .addComponent(jLabel15)
+                                .addGap(38, 38, 38)
+                                .addComponent(txtDirecionCliente))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                                            .addComponent(jLabel13)
+                                            .addGap(46, 46, 46))
+                                        .addGroup(jPanel9Layout.createSequentialGroup()
+                                            .addComponent(jLabel12)
+                                            .addGap(56, 56, 56)))
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addGap(41, 41, 41)))
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtNombreCliente, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCedulaCliente, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addGap(2, 2, 2)
+                                        .addComponent(txtTelefonoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addComponent(btnGuardarCliente)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(btnEditarCliente))
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addComponent(btnEliminarCliente)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(btnNuevoCliente))))))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -749,12 +804,13 @@ public final class Sistema extends javax.swing.JFrame {
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(txtTelefonoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
+                        .addGap(20, 20, 20)
                         .addComponent(jLabel15))
-                    .addComponent(txtDirecionCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(txtDirecionCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
                 .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
@@ -1694,8 +1750,38 @@ public final class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void btnGuardarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClienteActionPerformed
-        // TODO add your handling code here:
-        if (!"".equals(txtCedulaCliente.getText()) || !"".equals(txtNombreCliente.getText()) || !"".equals(txtTelefonoCliente.getText()) || !"".equals(txtDirecionCliente.getText())) {
+        int op = 0;
+        int opcion = 0;
+        
+        if (!"".equals(txtCedulaCliente.getText()) && !"".equals(txtNombreCliente.getText()) && !"".equals(txtTelefonoCliente.getText()) && !"".equals(txtDirecionCliente.getText())) {
+        
+           // NOMBRE
+        if(!validarNombre(txtNombreCliente.getText())){
+            JOptionPane.showMessageDialog(null, "Nombre no valido");
+            op = 1;
+        } else {
+            JOptionPane.showMessageDialog(null, "Nombre valido");
+        }
+            
+            //CEDULA
+         if (!validarCedula(txtCedulaCliente.getText())){
+            JOptionPane.showMessageDialog(null, "Introduce una cedula valida");
+            op = 1;
+        } else {
+            JOptionPane.showMessageDialog(null, "Cedula valida");
+        }
+            
+            //TELEFONO
+         if(!validarNumeroTelefono(txtTelefonoCliente.getText())){
+             op = 1;
+             JOptionPane.showMessageDialog(null, "Introduce un telefono valida");
+        } else {
+            JOptionPane.showMessageDialog(null, "Telefono valido");
+        }
+        
+        
+        
+        if(op == 0) {
             cl.setCedula(txtCedulaCliente.getText());
             cl.setNombre(txtNombreCliente.getText());
             cl.setTelefono(txtTelefonoCliente.getText());
@@ -1709,8 +1795,17 @@ public final class Sistema extends javax.swing.JFrame {
             btnEliminarCliente.setEnabled(false);
             btnGuardarCliente.setEnabled(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+            System.out.println("Hay un dato incorrecto");
+            opcion = op;
+            op = 0;
+            
         }
+        
+        } else {
+            JOptionPane.showMessageDialog(null, "No puedes dejar ningun campo vacio");
+        }
+        
+        System.out.println("Op vale "+ opcion);
     }//GEN-LAST:event_btnGuardarClienteActionPerformed
 
     private void txtCedulaClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaClienteKeyTyped
@@ -1868,6 +1963,14 @@ public final class Sistema extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtCodigoVentaKeyPressed
+
+    private void txtCedulaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaClienteActionPerformed
+
+    private void txtTelefonoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoClienteActionPerformed
 
     /**
      * @param args the command line arguments
