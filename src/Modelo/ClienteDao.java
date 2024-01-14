@@ -24,7 +24,91 @@ public class ClienteDao {
     PreparedStatement ps;
     ResultSet rs;
     
-    public boolean RegistrarCliente(Cliente cl){
+    public boolean RegistrarCliente(Cliente cl) {
+        // Consulta para verificar si la cédula ya existe
+        String sqlVerificar = "SELECT COUNT(*) FROM clientes WHERE cedula = ?";
+        
+        // Consulta para insertar un nuevo cliente
+        String sqlInsertar = "INSERT INTO clientes (cedula, nombre, telefono, direccion) VALUES (?,?,?,?)";
+
+        try {
+            con = cn.getConnection();
+
+            // Verificar si la cédula ya existe en la base de datos
+            try (PreparedStatement psVerificar = con.prepareStatement(sqlVerificar)) {
+                psVerificar.setString(1, cl.getCedula());
+
+                // Ejecutar la consulta de verificación
+                try (ResultSet rs = psVerificar.executeQuery()) {
+                    if (rs.next()) {
+                        int count = rs.getInt(1);
+                        if (count > 0) {
+                            JOptionPane.showMessageDialog(null, "Error: La cédula ya existe en la base de datos.");
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            // Insertar el nuevo cliente si la cédula no existe
+            try (PreparedStatement psInsertar = con.prepareStatement(sqlInsertar)) {
+                psInsertar.setString(1, cl.getCedula());
+                psInsertar.setString(2, cl.getNombre());
+                psInsertar.setString(3, cl.getTelefono());
+                psInsertar.setString(4, cl.getDireccion());
+
+                // Ejecutar la consulta de inserción
+                psInsertar.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Cliente Registrado");
+                return true;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*public boolean RegistrarCliente(Cliente cl){
         String sql = "INSERT INTO clientes (cedula, nombre, telefono, direccion) VALUES (?,?,?,?)";
         try {
             con = cn.getConnection();
@@ -45,7 +129,7 @@ public class ClienteDao {
                 System.out.println(e.toString());
             }
         }
-    }
+    }*/
     
    public List ListarCliente(){
        List<Cliente> ListaCl = new ArrayList();
