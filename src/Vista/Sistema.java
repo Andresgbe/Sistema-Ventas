@@ -81,7 +81,6 @@ public final class Sistema extends javax.swing.JFrame {
     
     //VALIDADORES  
     public static boolean validarNumeroTelefono(String numeroTelefono) {
-        // Eliminar espacios y guiones del número de teléfono
         String numeroSinFormato = numeroTelefono.replaceAll("[\\s-]+", "");
 
         // Definir el patrón para el formato del número de teléfono (10 a 11 dígitos con opcional signo de + al principio)
@@ -609,7 +608,7 @@ public final class Sistema extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 560));
 
         bannerhorizontal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Banner-hor2.png"))); // NOI18N
-        getContentPane().add(bannerhorizontal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 860, 110));
+        getContentPane().add(bannerhorizontal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 860, 130));
         bannerhorizontal.getAccessibleContext().setAccessibleName("");
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1717,6 +1716,8 @@ public final class Sistema extends javax.swing.JFrame {
     private void btnNuevoProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProActionPerformed
         // TODO add your handling code here:
         LimpiarProductos();
+        btnGuardarpro.setEnabled(true);
+        btnEditarpro.setEnabled(false);
     }//GEN-LAST:event_btnNuevoProActionPerformed
 
     private void btnEliminarProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProActionPerformed
@@ -1742,7 +1743,8 @@ public final class Sistema extends javax.swing.JFrame {
         int op = 0;
         
         
-        
+        if (!"".equals(txtCodigoPro.getText()) && !"".equals(txtDesPro.getText()) && !"".equals(txtCantPro.getText()) && !"".equals(txtPrecioPro.getText())) 
+        {
 
         
         if ("".equals(txtIdproducto.getText())) {
@@ -1770,8 +1772,8 @@ public final class Sistema extends javax.swing.JFrame {
             
             
           if(op == 0){  
-            if (!"".equals(txtCodigoPro.getText()) && !"".equals(txtDesPro.getText()) && !"".equals(txtCantPro.getText()) && !"".equals(txtPrecioPro.getText())) 
-            {
+            
+           
                 pro.setCodigo(txtCodigoPro.getText());
                 pro.setNombre(txtDesPro.getText());
                 Combo itemP = (Combo) cbxProveedorPro.getSelectedItem();
@@ -1789,18 +1791,21 @@ public final class Sistema extends javax.swing.JFrame {
                 btnEditarpro.setEnabled(false);
                 btnEliminarPro.setEnabled(false);
                 btnGuardarpro.setEnabled(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "No puedes dejar un campo vacio");
-            }
-          } else {
-              op = 0;
+            } 
+
           }
+        } else {
+            JOptionPane.showMessageDialog(null, "No puedes dejar ningun campo vacio");
         }
+        op = 0;
     }//GEN-LAST:event_btnEditarproActionPerformed
 
     private void btnGuardarproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarproActionPerformed
         // TODO add your handling code here:
         int op = 0;
+
+if (!"".equals(txtCodigoPro.getText()) && !"".equals(txtDesPro.getText()) && !"".equals(cbxProveedorPro.getSelectedItem()) && !"".equals(txtCantPro.getText()) && !"".equals(txtPrecioPro.getText())) 
+{
 
         if (!validarCodigo(txtCodigoPro.getText())){
             JOptionPane.showMessageDialog(null, "Introduce un codigo valido");
@@ -1817,7 +1822,7 @@ public final class Sistema extends javax.swing.JFrame {
             op = 1;
         } 
 
-        if (!"".equals(txtCodigoPro.getText()) && !"".equals(txtDesPro.getText()) && !"".equals(cbxProveedorPro.getSelectedItem()) && !"".equals(txtCantPro.getText()) || !"".equals(txtPrecioPro.getText())) {
+        
 
             if(op == 0) {
                 pro.setCodigo(txtCodigoPro.getText());
@@ -1838,7 +1843,7 @@ public final class Sistema extends javax.swing.JFrame {
                 btnGuardarpro.setEnabled(true);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Existe un campo obligatorio vacio");
+            JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio");
         }
         op = 0;
     }//GEN-LAST:event_btnGuardarproActionPerformed
@@ -2090,10 +2095,7 @@ if (!"".equals(txtCedulaCliente.getText()) && !"".equals(txtNombreCliente.getTex
                     LimpiarTable();
                     LimpiarCliente();
                     ListarCliente();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Dato incorrecto");
-                    
-                }
+                } 
             }
         } else {
     JOptionPane.showMessageDialog(null, "No puede haber ningun campo vacio");
