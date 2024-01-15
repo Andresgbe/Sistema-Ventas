@@ -97,6 +97,37 @@ public final class Sistema extends javax.swing.JFrame {
         return matcher.matches();
     }
 
+    //VALIDADOR TELEFONO EMPRESA
+    public static boolean validarTelefonoEmpresa(String telefono) {
+        // Expresión regular para validar un número de teléfono de 8 a 11 dígitos
+        String regex = "^[0-9]{8,11}$";
+
+        // Compila la expresión regular
+        Pattern pattern = Pattern.compile(regex);
+
+        // Crea el objeto Matcher
+        Matcher matcher = pattern.matcher(telefono);
+
+        // Verifica si el número de teléfono coincide con el patrón
+        return matcher.matches();
+    }
+    
+    //NOMBRE PROVEEDOR
+    public static boolean validarNombreProveedor(String nombreProveedor) {
+        // Expresión regular para validar un nombre de proveedor con solo letras
+        String regex = "^[a-zA-Z]+$";
+
+        // Compila la expresión regular
+        Pattern pattern = Pattern.compile(regex);
+
+        // Crea el objeto Matcher
+        Matcher matcher = pattern.matcher(nombreProveedor);
+
+        // Verifica si el nombre del proveedor coincide con el patrón
+        return matcher.matches();
+    }
+
+    
     // VALIDADOR CEDULA
     public static boolean validarCedula(String cedula) {
         // Definir el patrón para el formato de la cédula (6 a 9 dígitos)
@@ -154,6 +185,22 @@ public final class Sistema extends javax.swing.JFrame {
         Matcher matcher = pattern.matcher(direccion);
 
       
+        return matcher.matches();
+    }
+         
+    // VALIDAR RIF
+         
+         public static boolean validarRIF(String rif) {
+        // Expresión regular para validar un RIF de 5 a 10 dígitos
+        String regex = "^[0-9]{7,10}$";
+
+        // Compila la expresión regular
+        Pattern pattern = Pattern.compile(regex);
+
+        // Crea el objeto Matcher
+        Matcher matcher = pattern.matcher(rif);
+
+        // Verifica si el RIF coincide con el patrón
         return matcher.matches();
     }
          
@@ -301,7 +348,7 @@ public final class Sistema extends javax.swing.JFrame {
         LabelVendedor = new javax.swing.JLabel();
         tipo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         bannerhorizontal = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -510,11 +557,11 @@ public final class Sistema extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setText("Configuracion");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButton9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton9.setText("Configuracion");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButton9ActionPerformed(evt);
             }
         });
 
@@ -533,7 +580,7 @@ public final class Sistema extends javax.swing.JFrame {
                 .addGap(74, 74, 74)
                 .addComponent(tipo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -553,8 +600,8 @@ public final class Sistema extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
@@ -562,7 +609,7 @@ public final class Sistema extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 560));
 
         bannerhorizontal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Banner-hor2.png"))); // NOI18N
-        getContentPane().add(bannerhorizontal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 860, 130));
+        getContentPane().add(bannerhorizontal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 860, 110));
         bannerhorizontal.getAccessibleContext().setAccessibleName("");
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1852,13 +1899,14 @@ public final class Sistema extends javax.swing.JFrame {
 
         int op = 0;
 
+if (!"".equals(txtCedulaProveedor.getText()) && !"".equals(txtNombreProveedor.getText()) && !"".equals(txtTelefonoProveedor.getText()) && !"".equals(txtDireccionProveedor.getText())) 
+{
         if ("".equals(txtIdCliente.getText())) {
             
-        } else {
+        } 
 
-            //////////
-            if(!validarNombre(txtNombreProveedor.getText())){
-                JOptionPane.showMessageDialog(null, "El nombre no es valido");
+            if(!validarNombreProveedor(txtNombreProveedor.getText())){
+                JOptionPane.showMessageDialog(null, "Introduce un nombre valido");
                 op = 1;
             } 
 
@@ -1875,18 +1923,17 @@ public final class Sistema extends javax.swing.JFrame {
             } 
 
             //DIRECCION
-
             if(!validarDireccion(txtDireccionProveedor.getText())){
                 op = 1;
                 JOptionPane.showMessageDialog(null, "Introduce una direccion valida");
             } 
-        }
+        
 
         if (op == 0) {
             if ("".equals(txtIdProveedor.getText())) {
                 JOptionPane.showMessageDialog(null, "Seleecione una fila");
             } else {
-                if (!"".equals(txtCedulaProveedor.getText()) || !"".equals(txtNombreProveedor.getText()) || !"".equals(txtTelefonoProveedor.getText()) || !"".equals(txtDireccionProveedor.getText())) {
+                
                     pr.setCedula(txtCedulaProveedor.getText());
                     pr.setNombre(txtNombreProveedor.getText());
                     pr.setTelefono(txtTelefonoProveedor.getText());
@@ -1901,18 +1948,20 @@ public final class Sistema extends javax.swing.JFrame {
                     btnEliminarProveedor.setEnabled(false);
                     btnguardarProveedor.setEnabled(true);
 
-                } else {
-                    op = 0;
-                } 
-                      
-                        
+                }                                                        
             }
-        }
+        } else {
+    JOptionPane.showMessageDialog(null, "No puede haber ningun campo vacio");
+}
+      op = 0;
     }//GEN-LAST:event_btnEditarProveedorActionPerformed
 
     private void btnguardarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarProveedorActionPerformed
         int op = 0;
 
+
+if (!"".equals(txtCedulaProveedor.getText()) && !"".equals(txtNombreProveedor.getText()) && !"".equals(txtTelefonoProveedor.getText()) && !"".equals(txtDireccionProveedor.getText()))
+{
         //CEDULA
         if (!validarCedula(txtCedulaProveedor.getText())){
             JOptionPane.showMessageDialog(null, "Introduce una cedula valida");
@@ -1920,15 +1969,15 @@ public final class Sistema extends javax.swing.JFrame {
         } 
 
         //NOMBRE
-        if(!validarNombre(txtNombreProveedor.getText())){
-            JOptionPane.showMessageDialog(null, "Introduce un numero valido");
+        if(!validarNombreProveedor(txtNombreProveedor.getText())){
+            JOptionPane.showMessageDialog(null, "Introduce un nombre valido");
             op = 1;
         } 
 
         // TELEFONO
         if(!validarNumeroTelefono(txtTelefonoProveedor.getText())){
             op = 1;
-            JOptionPane.showMessageDialog(null, "Introduce un numero telefono valido");
+            JOptionPane.showMessageDialog(null, "Introduce un numero de telefono valido");
         } 
 
         //DIRECCION
@@ -1938,7 +1987,7 @@ public final class Sistema extends javax.swing.JFrame {
         } 
 
         if(op == 0){
-            if (!"".equals(txtCedulaProveedor.getText()) && !"".equals(txtNombreProveedor.getText()) && !"".equals(txtTelefonoProveedor.getText()) && !"".equals(txtDireccionProveedor.getText())) {
+            
                 pr.setCedula(txtCedulaProveedor.getText());
                 pr.setNombre(txtNombreProveedor.getText());
                 pr.setTelefono(txtTelefonoProveedor.getText());
@@ -1956,8 +2005,9 @@ public final class Sistema extends javax.swing.JFrame {
                 op = 0;
             }
         } else {
-           op = 0;
+           JOptionPane.showMessageDialog(null, "No puede haber ningun campo vacio");
         }
+        op = 0;
     }//GEN-LAST:event_btnguardarProveedorActionPerformed
 
     private void txtTelefonoProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoProveedorActionPerformed
@@ -2004,6 +2054,8 @@ public final class Sistema extends javax.swing.JFrame {
 
         int op = 0;
 
+if (!"".equals(txtCedulaCliente.getText()) && !"".equals(txtNombreCliente.getText()) && !"".equals(txtTelefonoCliente.getText()) && !"".equals(txtDireccionCliente.getText()))
+{
         if ("".equals(txtIdCliente.getText())) {
             JOptionPane.showMessageDialog(null, "seleccione una fila");
         } else {
@@ -2027,7 +2079,7 @@ public final class Sistema extends javax.swing.JFrame {
 
             ////////////
             if(op == 0){
-                if (!"".equals(txtCedulaCliente.getText()) && !"".equals(txtNombreCliente.getText()) && !"".equals(txtTelefonoCliente.getText()) && !"".equals(txtDireccionCliente.getText())) {
+                
                     cl.setCedula(txtCedulaCliente.getText());
                     cl.setNombre(txtNombreCliente.getText());
                     cl.setTelefono(txtTelefonoCliente.getText());
@@ -2040,17 +2092,21 @@ public final class Sistema extends javax.swing.JFrame {
                     ListarCliente();
                 } else {
                     JOptionPane.showMessageDialog(null, "Dato incorrecto");
-                    op = 0;
+                    
                 }
             }
-        }
+        } else {
+    JOptionPane.showMessageDialog(null, "No puede haber ningun campo vacio");
+}
+        op = 0;
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void btnGuardarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClienteActionPerformed
         int op = 0;
-        int opcion = 0;
+     
 
-        if (!"".equals(txtCedulaCliente.getText()) && !"".equals(txtNombreCliente.getText()) && !"".equals(txtTelefonoCliente.getText()) && !"".equals(txtDireccionCliente.getText())) {
+        if (!"".equals(txtCedulaCliente.getText()) && !"".equals(txtNombreCliente.getText()) && !"".equals(txtTelefonoCliente.getText()) && !"".equals(txtDireccionCliente.getText()))
+        {
             if(!validarNombre(txtNombreCliente.getText())){
                 JOptionPane.showMessageDialog(null, "Introduce un nombre valido");
                 op = 1;
@@ -2085,14 +2141,13 @@ public final class Sistema extends javax.swing.JFrame {
                 btnEliminarCliente.setEnabled(false);
                 btnGuardarCliente.setEnabled(true);
             } else {
-                opcion = op;
-                op = 0;
+           
             }
 
         } else {
             JOptionPane.showMessageDialog(null, "No puedes dejar ningun campo vacio");
         }
-        System.out.println("Op vale "+ opcion);
+        op = 0;
     }//GEN-LAST:event_btnGuardarClienteActionPerformed
 
     private void txtTelefonoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoClienteActionPerformed
@@ -2264,9 +2319,18 @@ public final class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoVentaActionPerformed
 
     private void btnActualizarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarConfigActionPerformed
-        // TODO add your handling code here:
-        
+       
         int op = 0;  
+        
+        if(!validarTelefonoEmpresa(txtTelefonoConfig.getText())){
+            JOptionPane.showMessageDialog(null, "El numero de telefono no es valido");
+            op = 1;
+        }
+        
+        if(!validarRIF(txtRucConfig.getText())){
+            JOptionPane.showMessageDialog(null, "El rif debe contener desde 7 a 10 digitos como maximo");
+            op = 1;
+        }
        
         if (!"".equals(txtRucConfig.getText()) && !"".equals(txtNombreConfig.getText()) && !"".equals(txtTelefonoConfig.getText()) && !"".equals(txtDireccionConfig.getText()))
         {
@@ -2278,11 +2342,11 @@ public final class Sistema extends javax.swing.JFrame {
             conf.setMensaje(txtMensaje.getText());
             conf.setId(Integer.parseInt(txtIdConfig.getText()));
             proDao.ModificarDatos(conf);
-            JOptionPane.showMessageDialog(null, "Datos de la empresa modificado");
+            JOptionPane.showMessageDialog(null, "Datos de la empresa modificados");
             ListarConfig();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+            JOptionPane.showMessageDialog(null, "No puede haber ningun campo vacio");
         }
         op = 0;
     }//GEN-LAST:event_btnActualizarConfigActionPerformed
@@ -2309,13 +2373,13 @@ public final class Sistema extends javax.swing.JFrame {
        JOptionPane.showMessageDialog(null, "El nombre y la direccion no son editables."); // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       jTabbedPane1.setSelectedIndex(5); 
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         JOptionPane.showMessageDialog(null, "Para agregar un proveedor debes dar click en el boton de agregar y despues guardar");
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        jTabbedPane1.setSelectedIndex(5); 
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2391,10 +2455,10 @@ public final class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
