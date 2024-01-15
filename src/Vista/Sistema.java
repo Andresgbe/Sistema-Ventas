@@ -85,7 +85,7 @@ public final class Sistema extends javax.swing.JFrame {
         String numeroSinFormato = numeroTelefono.replaceAll("[\\s-]+", "");
 
         // Definir el patrón para el formato del número de teléfono (10 a 11 dígitos con opcional signo de + al principio)
-        String patron = "^\\+?[0-9]{10,13}$";
+        String patron = "^[0-9]{10,13}$";
 
         // Compilar el patrón
         Pattern pattern = Pattern.compile(patron);
@@ -148,20 +148,19 @@ public final class Sistema extends javax.swing.JFrame {
         // Expresión regular para validar una dirección
         String regex = "^(?=.*[a-zA-Z])\\d*\\s*[a-zA-Z0-9]+(?:\\s+[a-zA-Z0-9]+)*$";
 
-        // Compila la expresión regular
         Pattern pattern = Pattern.compile(regex);
 
-        // Crea el objeto Matcher
+       
         Matcher matcher = pattern.matcher(direccion);
 
-        // Verifica si la dirección coincide con el patrón
+      
         return matcher.matches();
     }
          
          //VALIDAR CODIGO PRODUCTO
          
          public static boolean validarCodigo(String codigo) {
-        // Expresión regular para validar un código
+       
         String regex = "^[a-zA-Z0-9]{1,12}$";
 
         // Compila la expresión regular
@@ -173,6 +172,21 @@ public final class Sistema extends javax.swing.JFrame {
         // Verifica si el código coincide con el patrón
         return matcher.matches();
     }
+         
+         public static boolean validarDescripcion(String descripcion) {
+        // Expresión regular para validar que la descripción solo contenga letras
+        String regex = "^[a-zA-Z]+$";
+
+        // Compila la expresión regular
+        Pattern pattern = Pattern.compile(regex);
+
+        // Crea el objeto Matcher
+        Matcher matcher = pattern.matcher(descripcion);
+
+        // Verifica si la descripción coincide con el patrón
+        return matcher.matches();
+    }
+
 
     public void ListarCliente() {
         List<Cliente> ListarCl = client.ListarCliente();
@@ -276,6 +290,8 @@ public final class Sistema extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel41 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        Midate = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
         btnNuevaVenta = new javax.swing.JButton();
         btnClientes = new javax.swing.JButton();
@@ -285,6 +301,7 @@ public final class Sistema extends javax.swing.JFrame {
         LabelVendedor = new javax.swing.JLabel();
         tipo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         bannerhorizontal = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -310,8 +327,8 @@ public final class Sistema extends javax.swing.JFrame {
         LabelTotal = new javax.swing.JLabel();
         txtIdCV = new javax.swing.JTextField();
         txtIdPro = new javax.swing.JTextField();
-        Midate = new com.toedter.calendar.JDateChooser();
-        jLabel11 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableCliente = new javax.swing.JTable();
@@ -330,6 +347,7 @@ public final class Sistema extends javax.swing.JFrame {
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         TableProveedor = new javax.swing.JTable();
@@ -347,6 +365,7 @@ public final class Sistema extends javax.swing.JFrame {
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         TableProducto = new javax.swing.JTable();
@@ -388,6 +407,7 @@ public final class Sistema extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         txtIdConfig = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
@@ -402,8 +422,12 @@ public final class Sistema extends javax.swing.JFrame {
         cbxRol = new javax.swing.JComboBox<>();
         jScrollPane6 = new javax.swing.JScrollPane();
         TableUsuarios = new javax.swing.JTable();
+        jButton6 = new javax.swing.JButton();
 
         jLabel41.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setText("Seleccionar:");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -486,6 +510,14 @@ public final class Sistema extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton5.setText("Configuracion");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -496,11 +528,12 @@ public final class Sistema extends javax.swing.JFrame {
             .addComponent(btnProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(LabelVendedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addComponent(tipo)
-                .addContainerGap(126, Short.MAX_VALUE))
-            .addComponent(LabelVendedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,15 +552,17 @@ public final class Sistema extends javax.swing.JFrame {
                 .addComponent(btnProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 90, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 560));
 
         bannerhorizontal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Banner-hor2.png"))); // NOI18N
-        getContentPane().add(bannerhorizontal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 860, 100));
+        getContentPane().add(bannerhorizontal, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 860, 130));
         bannerhorizontal.getAccessibleContext().setAccessibleName("");
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -632,7 +667,7 @@ public final class Sistema extends javax.swing.JFrame {
                 btnEliminarventaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEliminarventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, -1, 40));
+        jPanel2.add(btnEliminarventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 40, 40));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel8.setText("Cédula");
@@ -677,11 +712,26 @@ public final class Sistema extends javax.swing.JFrame {
         jPanel2.add(LabelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 381, -1, -1));
         jPanel2.add(txtIdCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 370, 0, -1));
         jPanel2.add(txtIdPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, 0, -1));
-        jPanel2.add(Midate, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 210, 30));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel11.setText("Seleccionar:");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, -1, -1));
+        jButton2.setBackground(new java.awt.Color(255, 241, 221));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        jButton2.setText("i");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 40, 20));
+
+        jButton3.setBackground(new java.awt.Color(255, 241, 221));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        jButton3.setText("i");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 40, 20));
 
         jTabbedPane1.addTab("1", jPanel2);
 
@@ -868,6 +918,16 @@ public final class Sistema extends javax.swing.JFrame {
 
         jPanel3.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 270, 330));
 
+        jButton4.setBackground(new java.awt.Color(255, 239, 202));
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        jButton4.setText("i");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, -1));
+
         jTabbedPane1.addTab("2", jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(204, 227, 224));
@@ -1029,6 +1089,16 @@ public final class Sistema extends javax.swing.JFrame {
 
         jPanel4.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 260, 330));
 
+        jButton8.setBackground(new java.awt.Color(255, 255, 204));
+        jButton8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton8.setText("i");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 40, -1));
+
         jTabbedPane1.addTab("3", jPanel4);
 
         jPanel5.setBackground(new java.awt.Color(204, 227, 224));
@@ -1066,7 +1136,7 @@ public final class Sistema extends javax.swing.JFrame {
         }
 
         jPanel5.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 590, 330));
-        jPanel5.add(txtIdproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 25, 10, -1));
+        jPanel5.add(txtIdproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 25, 0, -1));
 
         jPanel11.setBackground(new java.awt.Color(204, 227, 224));
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Producto"));
@@ -1138,14 +1208,15 @@ public final class Sistema extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addGap(0, 12, Short.MAX_VALUE)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(btnGuardarpro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEditarpro)
-                        .addGap(9, 9, 9)
-                        .addComponent(btnEliminarPro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNuevoPro))
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel11Layout.createSequentialGroup()
+                            .addComponent(btnEditarpro)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnEliminarPro))
+                        .addGroup(jPanel11Layout.createSequentialGroup()
+                            .addComponent(btnGuardarpro)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnNuevoPro)))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1207,20 +1278,15 @@ public final class Sistema extends javax.swing.JFrame {
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(cbxProveedorPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel11Layout.createSequentialGroup()
-                            .addGap(37, 37, 37)
-                            .addComponent(btnGuardarpro))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnNuevoPro)))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEditarpro)
-                            .addComponent(btnEliminarPro, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(23, 23, 23))
+                    .addComponent(btnGuardarpro)
+                    .addComponent(btnNuevoPro))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEditarpro)
+                    .addComponent(btnEliminarPro, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
         );
 
         jPanel5.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 250, 330));
@@ -1281,32 +1347,37 @@ public final class Sistema extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel27.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel27.setText("RUC");
-        jPanel7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel27.setText("RIF");
+        jPanel7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 40, -1));
 
-        jLabel28.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel28.setText("NOMBRE");
         jPanel7.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, -1, -1));
 
-        jLabel29.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel29.setText("TELÉFONO");
         jPanel7.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, -1, -1));
 
-        jLabel30.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel30.setText("DIRECCIÓN");
         jPanel7.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
-        jLabel31.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel31.setText("MENSAJE");
         jPanel7.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
-        jPanel7.add(txtRucConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 147, 30));
-        jPanel7.add(txtNombreConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 220, 30));
-        jPanel7.add(txtTelefonoConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 218, 30));
-        jPanel7.add(txtDireccionConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 147, 30));
+        jPanel7.add(txtRucConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 147, 20));
+
+        txtNombreConfig.setEditable(false);
+        jPanel7.add(txtNombreConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 220, 20));
+        jPanel7.add(txtTelefonoConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 218, 20));
+
+        txtDireccionConfig.setEditable(false);
+        jPanel7.add(txtDireccionConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 147, 20));
         jPanel7.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 400, 30));
 
-        btnActualizarConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Actualizar (2).png"))); // NOI18N
+        btnActualizarConfig.setBackground(new java.awt.Color(204, 255, 255));
+        btnActualizarConfig.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnActualizarConfig.setText("ACTUALIZAR");
         btnActualizarConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1315,9 +1386,9 @@ public final class Sistema extends javax.swing.JFrame {
         });
         jPanel7.add(btnActualizarConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, -1, 35));
 
-        jLabel32.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel32.setText("DATOS DE LA EMPRESA");
-        jPanel7.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+        jPanel7.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 330, -1));
 
         jPanel8.setBackground(new java.awt.Color(204, 227, 224));
 
@@ -1327,8 +1398,8 @@ public final class Sistema extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap(351, Short.MAX_VALUE)
-                .addComponent(txtIdConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addComponent(txtIdConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1342,6 +1413,16 @@ public final class Sistema extends javax.swing.JFrame {
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/empresa.png"))); // NOI18N
         jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 410, 290));
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 204));
+        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton7.setText("i");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 50, -1));
 
         jTabbedPane1.addTab("6", jPanel7);
 
@@ -1450,6 +1531,16 @@ public final class Sistema extends javax.swing.JFrame {
         jScrollPane6.setViewportView(TableUsuarios);
 
         jPanel12.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 540, 380));
+
+        jButton6.setBackground(new java.awt.Color(255, 255, 204));
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton6.setText("i");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, -1));
 
         jTabbedPane1.addTab("7", jPanel12);
 
@@ -1601,11 +1692,39 @@ public final class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarProActionPerformed
 
     private void btnEditarproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarproActionPerformed
-        // TODO add your handling code here:
+        int op = 0;
+        
+        
+        
+
+        
         if ("".equals(txtIdproducto.getText())) {
             JOptionPane.showMessageDialog(null, "Seleecione una fila");
         } else {
-            if (!"".equals(txtCodigoPro.getText()) || !"".equals(txtDesPro.getText()) || !"".equals(txtCantPro.getText()) || !"".equals(txtPrecioPro.getText())) {
+            
+            // CODIGO
+            if (!validarCodigo(txtCodigoPro.getText())){
+            JOptionPane.showMessageDialog(null, "Introduce un codigo valido");
+            op = 1;
+        } 
+            
+            // DESCRIPCION VALIDA
+        if(!validarDescripcion(txtDesPro.getText())){
+            JOptionPane.showMessageDialog(null, "Introduce una descripcion valida");
+            op = 1;
+        } 
+
+          // CANTIDAD VALIDA
+        if(!validarCantidad(txtCantPro.getText())){
+            JOptionPane.showMessageDialog(null, "Introduce una cantidad valida");
+            op = 1;
+        } 
+            
+            
+            
+          if(op == 0){  
+            if (!"".equals(txtCodigoPro.getText()) && !"".equals(txtDesPro.getText()) && !"".equals(txtCantPro.getText()) && !"".equals(txtPrecioPro.getText())) 
+            {
                 pro.setCodigo(txtCodigoPro.getText());
                 pro.setNombre(txtDesPro.getText());
                 Combo itemP = (Combo) cbxProveedorPro.getSelectedItem();
@@ -1622,8 +1741,13 @@ public final class Sistema extends javax.swing.JFrame {
                 llenarProveedor();
                 btnEditarpro.setEnabled(false);
                 btnEliminarPro.setEnabled(false);
-                btnGuardarpro.setEnabled(true);
+                btnGuardarpro.setEnabled(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "No puedes dejar un campo vacio");
             }
+          } else {
+              op = 0;
+          }
         }
     }//GEN-LAST:event_btnEditarproActionPerformed
 
@@ -1632,25 +1756,19 @@ public final class Sistema extends javax.swing.JFrame {
         int op = 0;
 
         if (!validarCodigo(txtCodigoPro.getText())){
-            JOptionPane.showMessageDialog(null, "Codigo Incorrecto");
+            JOptionPane.showMessageDialog(null, "Introduce un codigo valido");
             op = 1;
-        } else {
-            JOptionPane.showMessageDialog(null, "Codigo Correcta");
-        }
+        } 
 
-        if(!validarNombre(txtDesPro.getText())){
-            JOptionPane.showMessageDialog(null, "Descripcion incorrecta");
+        if(!validarDescripcion(txtDesPro.getText())){
+            JOptionPane.showMessageDialog(null, "Introduce una descripcion valida");
             op = 1;
-        } else {
-            JOptionPane.showMessageDialog(null, "Descripcion correcta");
-        }
+        } 
 
         if(!validarCantidad(txtCantPro.getText())){
-            JOptionPane.showMessageDialog(null, "Cantidad correcta");
+            JOptionPane.showMessageDialog(null, "Introduce una cantidad valida");
             op = 1;
-        } else {
-            JOptionPane.showMessageDialog(null, "Introduce una cantidad correcta");
-        }
+        } 
 
         if (!"".equals(txtCodigoPro.getText()) && !"".equals(txtDesPro.getText()) && !"".equals(cbxProveedorPro.getSelectedItem()) && !"".equals(txtCantPro.getText()) || !"".equals(txtPrecioPro.getText())) {
 
@@ -1662,7 +1780,7 @@ public final class Sistema extends javax.swing.JFrame {
                 pro.setStock(Integer.parseInt(txtCantPro.getText()));
                 pro.setPrecio(Double.parseDouble(txtPrecioPro.getText()));
                 proDao.RegistrarProductos(pro);
-                JOptionPane.showMessageDialog(null, "Productos Registrado");
+                JOptionPane.showMessageDialog(null, "Producto Registrado");
                 LimpiarTable();
                 ListarProductos();
                 LimpiarProductos();
@@ -1673,8 +1791,9 @@ public final class Sistema extends javax.swing.JFrame {
                 btnGuardarpro.setEnabled(true);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Existe un campo vacio");
+            JOptionPane.showMessageDialog(null, "Existe un campo obligatorio vacio");
         }
+        op = 0;
     }//GEN-LAST:event_btnGuardarproActionPerformed
 
     private void cbxProveedorProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProveedorProActionPerformed
@@ -1694,7 +1813,7 @@ public final class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
         btnEditarpro.setEnabled(true);
         btnEliminarPro.setEnabled(true);
-        btnGuardarpro.setEnabled(true);
+        btnGuardarpro.setEnabled(false);
         int fila = TableProducto.rowAtPoint(evt.getPoint());
         txtIdproducto.setText(TableProducto.getValueAt(fila, 0).toString());
         pro = proDao.BuscarId(Integer.parseInt(txtIdproducto.getText()));
@@ -1734,7 +1853,7 @@ public final class Sistema extends javax.swing.JFrame {
         int op = 0;
 
         if ("".equals(txtIdCliente.getText())) {
-            JOptionPane.showMessageDialog(null, "seleccione una fila");
+            
         } else {
 
             //////////
@@ -1825,7 +1944,7 @@ public final class Sistema extends javax.swing.JFrame {
                 pr.setTelefono(txtTelefonoProveedor.getText());
                 pr.setDireccion(txtDireccionProveedor.getText());
                 PrDao.RegistrarProveedor(pr);
-                JOptionPane.showMessageDialog(null, "Proveedor Registrado");
+           //     JOptionPane.showMessageDialog(null, "Proveedor Registrado");
                 LimpiarTable();
                 ListarProveedor();
                 LimpiarProveedor();
@@ -2027,7 +2146,7 @@ public final class Sistema extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!"".equals(txtRucVenta.getText())) {
                 int dni = Integer.parseInt(txtRucVenta.getText());
-                JOptionPane.showMessageDialog(null, "entra aqui");
+               
                 cl = client.Buscarcliente(dni);
                 if (cl.getNombre() != null) {
                     txtNombreClienteventa.setText("" + cl.getNombre());
@@ -2045,7 +2164,7 @@ public final class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRucVentaActionPerformed
 
     private void btnEliminarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarventaActionPerformed
-        // TODO add your handling code here:
+        
         modelo = (DefaultTableModel) TableVenta.getModel();
         modelo.removeRow(TableVenta.getSelectedRow());
         TotalPagar();
@@ -2146,7 +2265,12 @@ public final class Sistema extends javax.swing.JFrame {
 
     private void btnActualizarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarConfigActionPerformed
         // TODO add your handling code here:
-        if (!"".equals(txtRucConfig.getText()) || !"".equals(txtNombreConfig.getText()) || !"".equals(txtTelefonoConfig.getText()) || !"".equals(txtDireccionConfig.getText())) {
+        
+        int op = 0;  
+       
+        if (!"".equals(txtRucConfig.getText()) && !"".equals(txtNombreConfig.getText()) && !"".equals(txtTelefonoConfig.getText()) && !"".equals(txtDireccionConfig.getText()))
+        {
+            if(op == 0){
             conf.setRuc(txtRucConfig.getText());
             conf.setNombre(txtNombreConfig.getText());
             conf.setTelefono(txtTelefonoConfig.getText());
@@ -2156,10 +2280,42 @@ public final class Sistema extends javax.swing.JFrame {
             proDao.ModificarDatos(conf);
             JOptionPane.showMessageDialog(null, "Datos de la empresa modificado");
             ListarConfig();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Los campos estan vacios");
         }
+        op = 0;
     }//GEN-LAST:event_btnActualizarConfigActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JOptionPane.showMessageDialog(null, "Para generar la factura debes introducir la cedula del cliente y presionar enter.");
+       
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JOptionPane.showMessageDialog(null, "Para ver el detalle del producto debes ingresar su codigo y presionar enter");
+        JOptionPane.showMessageDialog(null, "Para registrar la venta debes ingresar la cantidad y presionar enter");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        JOptionPane.showMessageDialog(null, "El numero de telefono puede contener el codigo de area");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        JOptionPane.showMessageDialog(null, "Un asistente tiene menos funciones que un administrador");
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+       JOptionPane.showMessageDialog(null, "El nombre y la direccion no son editables."); // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       jTabbedPane1.setSelectedIndex(5); 
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        JOptionPane.showMessageDialog(null, "Para agregar un proveedor debes dar click en el boton de agregar y despues guardar");
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2232,6 +2388,13 @@ public final class Sistema extends javax.swing.JFrame {
     private javax.swing.JComboBox<Object> cbxProveedorPro;
     private javax.swing.JComboBox<String> cbxRol;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
