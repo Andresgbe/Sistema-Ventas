@@ -74,63 +74,7 @@ public class ClienteDao {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*public boolean RegistrarCliente(Cliente cl){
-        String sql = "INSERT INTO clientes (cedula, nombre, telefono, direccion) VALUES (?,?,?,?)";
-        try {
-            con = cn.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setString(1, cl.getCedula());
-            ps.setString(2, cl.getNombre());
-            ps.setString(3, cl.getTelefono());
-            ps.setString(4, cl.getDireccion());
-            ps.execute();
-            return true;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
-            return false;
-        }finally{
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println(e.toString());
-            }
-        }
-    }*/
-    
+   
    public List ListarCliente(){
        List<Cliente> ListaCl = new ArrayList();
        String sql = "SELECT * FROM clientes";
