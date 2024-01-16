@@ -1,0 +1,10 @@
+INICIAR SESIÓN:
+
+andres@gmail.com
+123
+
+Importante: existe botones con la vocal "i" que brindan información para guiarse.
+
+La base de datos se encuentra en el archivo de formato "sql".
+
+El archivo Main es Main.java
